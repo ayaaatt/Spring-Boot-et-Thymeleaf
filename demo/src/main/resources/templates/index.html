@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des utilisateurs</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="mb-4">Liste des utilisateurs</h2>
+
+    <div th:switch="${users}">
+        <h4 th:case="null">Aucun utilisateur trouvé.</h4>
+        <div th:case="*">
+            <table class="table table-bordered table-striped">
+                <thead class="table-light">
+                <tr>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.name}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td><a class="btn btn-sm btn-warning" th:href="@{/edit/{id}(id=${user.id})}">Éditer</a></td>
+                    <td><a class="btn btn-sm btn-danger" th:href="@{/delete/{id}(id=${user.id})}">Supprimer</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <a class="btn btn-primary mt-3" href="/signup">Ajouter un utilisateur</a>
+</div>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
